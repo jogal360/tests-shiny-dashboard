@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\n# This is the server logic for a Shiny web application.\n# You can find out more about building applications with Shiny here:\n#\n# http://shiny.rstudio.com\n#\n\nlibrary(shiny)\n\n\nshinyServer(function(input, output) {\n \n})\n",
+    "created" : 1459463816802.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2864932869",
+    "id" : "4B606B50",
+    "lastKnownWriteTime" : 1460245064,
+    "last_content_update" : 1460245064139,
+    "path" : "/srv/shiny-server/testtags/testtags/server.R",
+    "project_path" : "server.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

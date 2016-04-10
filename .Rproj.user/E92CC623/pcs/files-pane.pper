@@ -1,0 +1,9 @@
+{
+    "path" : "/srv/shiny-server/testtags/testtags",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}
