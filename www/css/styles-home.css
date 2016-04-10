@@ -416,4 +416,14 @@ body {
 }
 section .content {
       margin-bottom: 0;
-    }
+}
+.container-fluid {
+  padding-right:0; 
+  padding-left: 0; 
+  margin-right: 0; 
+  margin-left: 0; 
+}
+
+#btnUp {
+    margin-right: 40px;
+}

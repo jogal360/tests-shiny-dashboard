@@ -144,7 +144,7 @@ shinyUI(
           ),
           tags$a(
             id = "btnUp",
-            href = ".intro",
+            href = ".wrapper",
             class = "btn btn-circle page-scroll pull-right",
             tags$i(class = "fa fa-angle-double-up animated")
           ),
@@ -155,14 +155,6 @@ shinyUI(
           )),
           tags$script(src = "js/jquery.easing.min.js"),
           tags$script(src = "js/grayscale.js")
-                  # fluidRow(
-                  #   box(plotOutput("plot1", height = 250)),
-                  #   
-                  #   box(
-                  #     title = "Controls",
-                  #     sliderInput("slider", "Number of observations:", 1, 100, 50)
-                  #   )
-                  # )
           ),
           
           # Second tab content
