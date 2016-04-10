@@ -7,8 +7,16 @@
 #
 
 library(shiny)
+library(shinyjs)
 
 
 shinyServer(function(input, output) {
- 
+  observeEvent(input$go,{
+    output$dash <- renderUI({
+      shinyjs::hide("ocultar", anim = TRUE, animType = "fade")
+      shinyjs::show("idheader", anim = TRUE, animType = "fade")
+      # shinyjs::show("idsidebar", anim = TRUE, animType = "fade")
+      tags$h1("Aqui va lo jarcor :v")
+    })
+  })
 })

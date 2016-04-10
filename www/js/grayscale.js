@@ -44,5 +44,10 @@ $('.navbar-collapse ul li a').click(function() {
   }
 });
 
+$('.main-header').hide();
+$('.main-sidebar').hide();
+
+$('.main-header').attr('id', 'idheader');
+$('.main-sidebar').attr('id', 'idsidebar');
 
 
