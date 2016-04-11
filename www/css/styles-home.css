@@ -407,6 +407,17 @@ body {
   background-color: #000;
 }
 
+#dash>div.content-wrapper {
+  background-color: #fff;
+  color: #000;
+  width: 100%;
+  height: 100%;
+  margin-left: 0px;
+}
+#dbBD, #dash, #tbHm  {
+   color: #000;
+}
+
 .content {
   padding: 0 0 0 0;
 }
@@ -423,7 +434,21 @@ section .content {
   margin-right: 0; 
   margin-left: 0; 
 }
-
+#idheader {
+  
+   margin-bottom: 70px;
+}
 #btnUp {
-    margin-right: 40px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px; 
+}
+div.wrapper {
+  min-height: 100%;
+}
+div.content-wrapper {
+  min-height: 100%;
+}
+.skin-blue .wrapper {
+    background-color: transparent;
 }

@@ -46,8 +46,29 @@ $('.navbar-collapse ul li a').click(function() {
 
 $('.main-header').hide();
 $('.main-sidebar').hide();
+//$('#tbHm').hide();
 
 $('.main-header').attr('id', 'idheader');
 $('.main-sidebar').attr('id', 'idsidebar');
+$('body').attr('id', 'idBody');
+
+//Al dar click en comenzar, que lleve al principio del dash
+document.getElementById("go").addEventListener("click", function(){
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    $('body').css('background-color','#fff');
+    yy = document.querySelectorAll('.content-wrapper');
+    z = yy[0];
+    
+    z.style.backgroundColor = "#fff";
+   
+});
+
+//Header fixed
+$($('.main-header').children()[1]).addClass("navbar-fixed-top");
+$($('.main-header').children()[0]).css('position','fixed')
+
+
+
+
 
 
