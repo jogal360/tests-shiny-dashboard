@@ -65,8 +65,26 @@ document.getElementById("go").addEventListener("click", function(){
 
 //Header fixed
 $($('.main-header').children()[1]).addClass("navbar-fixed-top");
-$($('.main-header').children()[0]).css('position','fixed')
+$($('.main-header').children()[0]).css('position','fixed');
 
+//Agregar id a cada elemento del sidePanel
+$('#menu').on('DOMNodeInserted', 'li', function () {
+      $('#menu').children().last().attr('id','li'+ $("#menu li").length);
+      id = $('#menu').children().last().attr('id');
+     /* if((id !== "li1") && (id !== "li2") ){
+         $('#menu').children().last().css('display','none');
+      }*/
+});
+
+//Ocultar descarga de archivos al clickear otro elemento en el sidePanel
+$("#menu").delegate('li', 'click', function(){
+  if(!$(this).hasClass('treeview') ){
+    if($('#menu').children().last().hasClass('treeview') && $('#menu').children().children().last().hasClass('menu-open')){
+      $('#menu').children().children().last().removeClass('menu-open');
+      $('#menu').children().children().last().css('display', 'none');
+    }
+  }
+});
 
 
 

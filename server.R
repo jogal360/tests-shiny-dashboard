@@ -50,6 +50,7 @@ shinyServer(function(input, output, session) {
   curt <- NULL
   mamin <- NULL
   
+
   observeEvent(input$go, {
     output$dash <- renderUI({
       #ShinyJs para ocultar / mostrar secciones
@@ -94,37 +95,107 @@ shinyServer(function(input, output, session) {
                 )
               )),
               column(8, uiOutput("cargaDatos"), bsAlert("alert"))
-            ),
-            # Paneles del area de trabajo
-            tabsetPanel(
-              tabPanel(
-                "Tabla",
-                bsAlert("conSuccDB"),
-                h2("Tabla de los datos"),
-                uiOutput("choiceTableBD"),
-                DT::dataTableOutput("tablaDatos")
-              ),
-              tabPanel("Gráfica", uiOutput("choicePlot")),
-              tabPanel(
-                "Cálculos estadísticos",
-                h2("Cálculos estadísticos"),
-                uiOutput("calcEst")
-              ),
-              tabPanel(
-                "Reporte",
-                h2("Reporte"),
-                radioButtons(
-                  'format',
-                  'Selecciona un formato para el reporte',
-                  c('PDF', 'HTML', 'Word'),
-                  inline = TRUE
-                ),
-                downloadButton('downloadReport', label = "Descargar")
-              )
             )
+            # Paneles del area de trabajo
+            # tabsetPanel(
+            #   tabPanel(
+            #     "Tabla",
+            #     bsAlert("conSuccDB"),
+            #     h2("Tabla de los datos"),
+            #     uiOutput("choiceTableBD"),
+            #     DT::dataTableOutput("tablaDatos")
+            #   ),
+            #   tabPanel("Gráfica", uiOutput("choicePlot")),
+            #   tabPanel(
+            #     "Cálculos estadísticos",
+            #     h2("Cálculos estadísticos"),
+            #     uiOutput("calcEst")
+            #   ),
+            #   tabPanel(
+            #     "Reporte",
+            #     h2("Reporte"),
+            #     radioButtons(
+            #       'format',
+            #       'Selecciona un formato para el reporte',
+            #       c('PDF', 'HTML', 'Word'),
+            #       inline = TRUE
+            #     ),
+            #     downloadButton('downloadReport1', label = "Descargar")
+            #   )
+            # )#aqui acaba
           )
+        ),
+        tabItem(
+          tabName = "tabla",
+          bsAlert("conSuccDB"),
+          h2("Tabla de los datos"),
+          uiOutput("choiceTableBD"),
+          DT::dataTableOutput("tablaDatos")
+        ),
+        tabItem(
+          tabName = "grafica",
+          uiOutput("choicePlot")
+        ),
+        tabItem(
+          tabName = "calculos",
+          "Cálculos estadísticos",
+          h2("Cálculos estadísticos"),
+          uiOutput("calcEst")
+        ),
+        tabItem(
+          tabName = "regresion" 
         )
-        
+      )
+      
+    })
+    output$menu <- renderMenu({
+      
+      sidebarMenu(
+        menuItem(
+          "Presentación",
+          icon = icon("home"),
+          href = "javascript:window.location.href=window.location.href"
+        ),
+        menuItem(
+          "Ingresar datos",
+          icon = icon("magic"),
+          tabName = "loadData"
+        ),
+        menuItem(
+          "Tabla",
+          icon = icon("table"),
+          tabName = "tabla"
+        ),
+        menuItem(
+          "Gráfica",
+          icon = icon("bar-chart"),
+          tabName = "grafica"
+        ),
+        menuItem(
+          "Cálculos estadísticos",
+          icon = icon("calculator"),
+          tabName = "calculos"
+        ),
+        menuItem(
+          "Regresión lineal",
+          icon = icon("area-chart"),
+          tabName = "regresion"
+        ),
+        menuItem(
+          "Reportes",
+          icon = icon("download"),
+          tabName = "reportes",
+          tags$div(
+            id = "rep",
+            class = "text-center",
+            radioButtons(
+              'format',
+              'Selecciona un formato',
+              c('PDF', 'HTML', 'Word'),
+              inline = TRUE
+            ),
+            downloadButton('downloadReport', label = "Descargar")
+          ))
       )
       
     })
@@ -188,23 +259,14 @@ shinyServer(function(input, output, session) {
       }
       
     })
-    output$menu <- renderMenu({
-      sidebarMenu(
-        menuItem(
-          "Presentación",
-          icon = icon("home"),
-          href = "javascript:window.location.href=window.location.href"
-        ),
-        menuItem(
-          "Ingresar datos",
-          icon = icon("magic"),
-          tabName = "loadData"
-        )
-      )
-    })
     
     
   })
+  # observeEvent(input$menu, {
+  #   if(input$menu){
+  #     
+  #   }
+  # })
   # Conectar a la BD
   observeEvent(input$subdb,({
     if(is.null(conexionDB)){
@@ -255,7 +317,7 @@ shinyServer(function(input, output, session) {
       return(datosObt)
     })
   )
-  
+
   # Tabla de datos
   output$tablaDatos <- DT::renderDataTable(({
     
@@ -266,6 +328,12 @@ shinyServer(function(input, output, session) {
       }else{
         observeEvent(input$valtxt, ({
           shinyjs::hide("cargar", anim = TRUE)
+          shinyjs::hide('li2')
+          shinyjs::show('li3')
+          shinyjs::show('li4')
+          shinyjs::show('li5')
+          shinyjs::show('li6')
+          shinyjs::show('li7')
         }))
         tmp <- strsplit(inFile, split=",")
         inputValues <- as.numeric(unlist(tmp))
@@ -273,6 +341,12 @@ shinyServer(function(input, output, session) {
         datoscsv <<- data.frame(inputValues)
       }
     }else if(input$tDatos == "Base de datos" && input$subdb == TRUE){
+      shinyjs::hide('li2')
+      shinyjs::show('li3')
+      shinyjs::show('li4')
+      shinyjs::show('li5')
+      shinyjs::show('li6')
+      shinyjs::show('li7')
       datoscsv <<- tableBD()
     }else{
       inFile <<- input$valorescsv
@@ -281,6 +355,12 @@ shinyServer(function(input, output, session) {
         return(NULL)
       }else{
         observeEvent(input$valorescsv, ({
+          shinyjs::hide('li2')
+          shinyjs::show('li3')
+          shinyjs::show('li4')
+          shinyjs::show('li5')
+          shinyjs::show('li6')
+          shinyjs::show('li7')
           shinyjs::hide("cargar", anim = TRUE)
         }))
         datoscsv <<- read.csv(inFile$datapath, header=input$header, sep=input$sep, 
@@ -673,5 +753,5 @@ shinyServer(function(input, output, session) {
       dbDisconnect(conn = conexionDB)
     )
   })
-  
+  shinyjs::hide("li3", anim = FALSE, animType = "fade")  
 })

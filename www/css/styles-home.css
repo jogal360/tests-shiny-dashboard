@@ -452,3 +452,8 @@ div.content-wrapper {
 .skin-blue .wrapper {
     background-color: transparent;
 }
+
+
+#downloadReport {
+    margin-bottom: 15px;
+}

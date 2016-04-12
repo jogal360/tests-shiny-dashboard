@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 # This is the user-interface definition of a Shiny web application.
 # You can find out more about building applications with Shiny here:
 #
@@ -21,6 +14,7 @@ shinyUI(
     dashboardHeader(title = "Análisis Estadístico de datos",
                     titleWidth = 300),
     dashboardSidebar(width = 300,
+                     useShinyjs(),
                      sidebarMenuOutput("menu")),
     dashboardBody(
       useShinyjs(),
