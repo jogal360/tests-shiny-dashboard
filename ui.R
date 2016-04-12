@@ -7,6 +7,7 @@
 library(shiny)
 library(shinyjs)
 library(shinydashboard)
+jsCode <- "shinyjs.clickHide = function(){$('#li3').children().click (); console.log('params')}"
 
 shinyUI(
   dashboardPage(
@@ -15,9 +16,11 @@ shinyUI(
                     titleWidth = 300),
     dashboardSidebar(width = 300,
                      useShinyjs(),
+                     extendShinyjs(text = jsCode),
                      sidebarMenuOutput("menu")),
     dashboardBody(
       useShinyjs(),
+      extendShinyjs(text = jsCode),
       tags$div(
         id = "ocultar",
         tags$head(

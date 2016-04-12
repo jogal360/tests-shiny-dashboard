@@ -49,6 +49,10 @@ shinyServer(function(input, output, session) {
   rang <- NULL
   curt <- NULL
   mamin <- NULL
+  x <- NULL
+  y <- NULL
+  modelos <- c("lineal", "cuadratico", "cubico", "potencial", "exponencial", "logaritmico", "inverso", "sigmoidal")
+  resRG <- NULL
   
 
   observeEvent(input$go, {
@@ -138,12 +142,25 @@ shinyServer(function(input, output, session) {
         ),
         tabItem(
           tabName = "calculos",
-          "Cálculos estadísticos",
           h2("Cálculos estadísticos"),
           uiOutput("calcEst")
         ),
         tabItem(
           tabName = "regresion" 
+        ),
+        tabItem(
+          tabName = "reportes",
+          tags$div(
+            id = "rep",
+            class = "text-center",
+            radioButtons(
+              'format',
+              'Selecciona un formato',
+              c('PDF', 'HTML', 'Word'),
+              inline = TRUE
+            ),
+            downloadButton('downloadReport', label = "Descargar")
+          )
         )
       )
       
@@ -184,18 +201,8 @@ shinyServer(function(input, output, session) {
         menuItem(
           "Reportes",
           icon = icon("download"),
-          tabName = "reportes",
-          tags$div(
-            id = "rep",
-            class = "text-center",
-            radioButtons(
-              'format',
-              'Selecciona un formato',
-              c('PDF', 'HTML', 'Word'),
-              inline = TRUE
-            ),
-            downloadButton('downloadReport', label = "Descargar")
-          ))
+          tabName = "reportes"
+         )
       )
       
     })
@@ -262,11 +269,7 @@ shinyServer(function(input, output, session) {
     
     
   })
-  # observeEvent(input$menu, {
-  #   if(input$menu){
-  #     
-  #   }
-  # })
+
   # Conectar a la BD
   observeEvent(input$subdb,({
     if(is.null(conexionDB)){
@@ -275,7 +278,7 @@ shinyServer(function(input, output, session) {
         createAlert(session, "conSuccDB", "alSucc", title = "Success!",
                     content = "Conexion éxitosa :)", append = TRUE, style = "success")
         shinyjs::hide("cargar", anim = TRUE)
-        shinyjs::hide("conSuccDB", anim = TRUE, time = 5, animType = "fade")
+        shinyjs::hide("conSuccDB", anim = TRUE, time = 1, animType = "fade")
       },
       error = function(e){
         createAlert(session, "conSuccDB", "alErr", title = "Error",
@@ -317,23 +320,45 @@ shinyServer(function(input, output, session) {
       return(datosObt)
     })
   )
-
+  observeEvent(input$subman, {
+    shinyjs::hide('li2')
+    js$clickHide()
+    shinyjs::show('li3')
+    shinyjs::show('li4')
+    shinyjs::show('li5')
+    shinyjs::show('li6')
+    shinyjs::show('li7')
+  })
+  observeEvent(input$valorescsv, {
+    shinyjs::hide('li2')
+    js$clickHide()
+    shinyjs::show('li3')
+    shinyjs::show('li4')
+    shinyjs::show('li5')
+    shinyjs::show('li6')
+    shinyjs::show('li7')
+  })
+  observeEvent(input$subdb, {
+    shinyjs::hide('li2')
+    js$clickHide()
+    shinyjs::show('li3')
+    shinyjs::show('li4')
+    shinyjs::show('li5')
+    shinyjs::show('li6')
+    shinyjs::show('li7')
+  })
+  
   # Tabla de datos
   output$tablaDatos <- DT::renderDataTable(({
-    
     if(input$tDatos == "Manual" && input$subman == TRUE){
+     
       inFile <<- input$valtxt
       if (is.null(inFile)){
         return(NULL)
       }else{
+        
         observeEvent(input$valtxt, ({
           shinyjs::hide("cargar", anim = TRUE)
-          shinyjs::hide('li2')
-          shinyjs::show('li3')
-          shinyjs::show('li4')
-          shinyjs::show('li5')
-          shinyjs::show('li6')
-          shinyjs::show('li7')
         }))
         tmp <- strsplit(inFile, split=",")
         inputValues <- as.numeric(unlist(tmp))
@@ -341,26 +366,16 @@ shinyServer(function(input, output, session) {
         datoscsv <<- data.frame(inputValues)
       }
     }else if(input$tDatos == "Base de datos" && input$subdb == TRUE){
-      shinyjs::hide('li2')
-      shinyjs::show('li3')
-      shinyjs::show('li4')
-      shinyjs::show('li5')
-      shinyjs::show('li6')
-      shinyjs::show('li7')
+      js$clickHide()
       datoscsv <<- tableBD()
     }else{
+      js$clickHide()
       inFile <<- input$valorescsv
       
       if (is.null(inFile)){
         return(NULL)
       }else{
         observeEvent(input$valorescsv, ({
-          shinyjs::hide('li2')
-          shinyjs::show('li3')
-          shinyjs::show('li4')
-          shinyjs::show('li5')
-          shinyjs::show('li6')
-          shinyjs::show('li7')
           shinyjs::hide("cargar", anim = TRUE)
         }))
         datoscsv <<- read.csv(inFile$datapath, header=input$header, sep=input$sep, 
@@ -753,5 +768,5 @@ shinyServer(function(input, output, session) {
       dbDisconnect(conn = conexionDB)
     )
   })
-  shinyjs::hide("li3", anim = FALSE, animType = "fade")  
+  
 })
