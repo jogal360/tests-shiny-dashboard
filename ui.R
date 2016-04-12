@@ -7,7 +7,7 @@
 library(shiny)
 library(shinyjs)
 library(shinydashboard)
-jsCode <- "shinyjs.clickHide = function(){$('#li3').children().click (); console.log('params')}"
+jsCode <- "shinyjs.clickHide = function(){$('#li3').children().click (); }"
 
 shinyUI(
   dashboardPage(
