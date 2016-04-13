@@ -7,8 +7,7 @@
 library(shiny)
 library(shinyjs)
 library(shinydashboard)
-jsCode <- "shinyjs.clickHide = function(){$('#li3').children().click (); };
-            shinyjs.arriba = function(){$('html, body').animate({ scrollTop: 0 }, 'slow'); console.log('subiendo');}"
+jsCode <- "shinyjs.clickHide = function(){$('#li3').children().click (); };"
 
 shinyUI(
   dashboardPage(
@@ -106,7 +105,12 @@ shinyUI(
               tags$a(href = "https://www.r-project.org/", "lenguaje de programación R"),
               "por el equipo de desarrollo integrado por: Joaquin Galvan Angeles, Cesar Hernandez Antonio y Marco Antonio Palestina Gomez del grupo 8ITI1 para la materia de Estadística Aplicada.",
               tags$br(),
-              "R se especializa en el análsis de datos estadísticos. Esto lo convierte en una herramienta de mucha utlidad dentro de las empresas o para propósitos personales."
+              "R se especializa en el análsis de datos estadísticos. Esto lo convierte en una herramienta de mucha utlidad dentro de las empresas o para propósitos personales.",
+              tags$a(
+                href = "#mainF",
+                class = "btn btn-circle page-scroll",
+                tags$i(class = "fa fa-angle-double-down animated")
+              )
             )
           )
         )
@@ -139,6 +143,11 @@ shinyUI(
                 tags$li("Desviación estándar"),
                 tags$li("Sesgo")
               )
+            ),
+            tags$a(
+              href = "#contact",
+              class = "btn btn-circle page-scroll",
+              tags$i(class = "fa fa-angle-double-down animated")
             )
           )
         )

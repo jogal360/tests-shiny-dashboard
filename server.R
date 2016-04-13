@@ -192,11 +192,21 @@ shinyServer(function(input, output, session) {
         ),
         tabItem(
           tabName = "regresion" ,
-          tags$div(
-            uiOutput("rs1"),
-            plotOutput("rsgr"),
-            uiOutput("chkTr"),
-            plotOutput("plotRsgr")
+          fluidRow(
+            class = "text-center",
+            column(12, 
+                   fluidRow(
+                     column(
+                       class="col-sm-offset-1", 10, 
+                       tags$div(
+                         uiOutput("rs1"),
+                         plotOutput("rsgr"),
+                         uiOutput("chkTr"),
+                         plotOutput("plotRsgr")
+                     )
+                   )
+            )
+          )
           )
         )
       )
@@ -236,7 +246,7 @@ shinyServer(function(input, output, session) {
           tabName = "reportes"
         ),
         menuItem(
-          "Regresión lineal",
+          "Regresión",
           icon = icon("area-chart"),
           tabName = "regresion"
         )
@@ -357,24 +367,7 @@ shinyServer(function(input, output, session) {
       return(datosObt)
     })
   )
-  
-  # subir <- function(){
-  #   observeEvent(input$li3, {
-  #     js$arriba()
-  #   })
-  #   observeEvent(input$li4, {
-  #     js$arriba()
-  #   })
-  #   observeEvent(input$li5, {
-  #     js$arriba()
-  #   })
-  #   observeEvent(input$li6, {
-  #     js$arriba()
-  #   })
-  #   observeEvent(input$li7, {
-  #     js$arriba()
-  #   })
-  # }
+
   observeEvent(input$subman, {
    
     shinyjs::hide('li2')
