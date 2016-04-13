@@ -83,59 +83,78 @@ shinyServer(function(input, output, session) {
         tabItem(
           tabName = "loadData",
           # Area para la carga de datos
-          tags$div(
-            class = 'text-center',
-            fluidRow(
-              id = "cargar",
-              column(4, wellPanel(
-                selectInput(
-                  "tDatos",
-                  "Elige como ingresar datos:",
-                  choices = c("-- Elige una opcion --", "CSV", "Manual", "Base de datos")
-                ),
-                bsButton(
-                  inputId = "sel",
-                  label = "Seleccionar",
-                  style = "success"
-                )
-              )),
-              column(8, uiOutput("cargaDatos"), bsAlert("alert"))
-            )
-            # Paneles del area de trabajo
-            # tabsetPanel(
-            #   tabPanel(
-            #     "Tabla",
-            #     bsAlert("conSuccDB"),
-            #     h2("Tabla de los datos"),
-            #     uiOutput("choiceTableBD"),
-            #     DT::dataTableOutput("tablaDatos")
-            #   ),
-            #   tabPanel("Gráfica", uiOutput("choicePlot")),
-            #   tabPanel(
-            #     "Cálculos estadísticos",
-            #     h2("Cálculos estadísticos"),
-            #     uiOutput("calcEst")
-            #   ),
-            #   tabPanel(
-            #     "Reporte",
-            #     h2("Reporte"),
-            #     radioButtons(
-            #       'format',
-            #       'Selecciona un formato para el reporte',
-            #       c('PDF', 'HTML', 'Word'),
-            #       inline = TRUE
-            #     ),
-            #     downloadButton('downloadReport1', label = "Descargar")
-            #   )
-            # )#aqui acaba
+          fluidRow(
+            id = "cargar", class = "text-center",
+            column(12, fluidRow(column(class="col-sm-offset-4", 4,
+                                       wellPanel(
+                                         selectInput(
+                                           "tDatos",
+                                           "Elige como ingresar datos:",
+                                           choices = c("-- Elige una opcion --", "CSV", "Manual", "Base de datos")
+                                         ),
+                                         bsButton(
+                                           inputId = "sel",
+                                           label = "Seleccionar",
+                                           style = "success"
+                                         )
+                                       )))
+            ),
+            column(12, 
+                   fluidRow(
+                     column(
+                       class="col-sm-offset-3",6, 
+                       uiOutput( "cargaDatos"), 
+                       bsAlert("alert")
+                       )
+                     )
+                   )
           )
+          # Paneles del area de trabajo
+          # tabsetPanel(
+          #   tabPanel(
+          #     "Tabla",
+          #     bsAlert("conSuccDB"),
+          #     h2("Tabla de los datos"),
+          #     uiOutput("choiceTableBD"),
+          #     DT::dataTableOutput("tablaDatos")
+          #   ),
+          #   tabPanel("Gráfica", uiOutput("choicePlot")),
+          #   tabPanel(
+          #     "Cálculos estadísticos",
+          #     h2("Cálculos estadísticos"),
+          #     uiOutput("calcEst")
+          #   ),
+          #   tabPanel(
+          #     "Reporte",
+          #     h2("Reporte"),
+          #     radioButtons(
+          #       'format',
+          #       'Selecciona un formato para el reporte',
+          #       c('PDF', 'HTML', 'Word'),
+          #       inline = TRUE
+          #     ),
+          #     downloadButton('downloadReport1', label = "Descargar")
+          #   )
+          # )#aqui acaba
+          
         ),
         tabItem(
           tabName = "tabla",
-          bsAlert("conSuccDB"),
-          h2("Tabla de los datos"),
-          uiOutput("choiceTableBD"),
-          DT::dataTableOutput("tablaDatos")
+          fluidRow(
+            class = "text-center",
+            column(12, 
+                   fluidRow(
+                     column(
+                       class="col-sm-offset-2", 8, 
+                      
+                       bsAlert("conSuccDB"),
+                       h2("Tabla de los datos"),
+                       uiOutput("choiceTableBD"),
+                       DT::dataTableOutput("tablaDatos")
+                       )
+                     )
+                   )
+            )
         ),
         tabItem(
           tabName = "grafica",
@@ -143,7 +162,18 @@ shinyServer(function(input, output, session) {
         ),
         tabItem(
           tabName = "calculos",
-          h2("Cálculos estadísticos"),
+          fluidRow(
+            class = "text-center",
+            column(12, 
+                   fluidRow(
+                     column(
+                       class="col-sm-offset-1", 10, 
+                       h2("Cálculos estadísticos")
+                     )
+                   )
+            )
+          ),
+          
           uiOutput("calcEst")
         ),
         tabItem(
@@ -204,7 +234,7 @@ shinyServer(function(input, output, session) {
           "Reportes",
           icon = icon("download"),
           tabName = "reportes"
-         ),
+        ),
         menuItem(
           "Regresión lineal",
           icon = icon("area-chart"),
@@ -276,7 +306,7 @@ shinyServer(function(input, output, session) {
     
     
   })
-
+  
   # Conectar a la BD
   observeEvent(input$subdb,({
     if(is.null(conexionDB)){
@@ -327,7 +357,26 @@ shinyServer(function(input, output, session) {
       return(datosObt)
     })
   )
+  
+  # subir <- function(){
+  #   observeEvent(input$li3, {
+  #     js$arriba()
+  #   })
+  #   observeEvent(input$li4, {
+  #     js$arriba()
+  #   })
+  #   observeEvent(input$li5, {
+  #     js$arriba()
+  #   })
+  #   observeEvent(input$li6, {
+  #     js$arriba()
+  #   })
+  #   observeEvent(input$li7, {
+  #     js$arriba()
+  #   })
+  # }
   observeEvent(input$subman, {
+   
     shinyjs::hide('li2')
     js$clickHide()
     shinyjs::show('li3')
@@ -337,6 +386,7 @@ shinyServer(function(input, output, session) {
     shinyjs::show('li7')
   })
   observeEvent(input$valorescsv, {
+    
     shinyjs::hide('li2')
     js$clickHide()
     shinyjs::show('li3')
@@ -346,6 +396,7 @@ shinyServer(function(input, output, session) {
     shinyjs::show('li7')
   })
   observeEvent(input$subdb, {
+  
     shinyjs::hide('li2')
     js$clickHide()
     shinyjs::show('li3')
@@ -358,7 +409,7 @@ shinyServer(function(input, output, session) {
   # Tabla de datos
   output$tablaDatos <- DT::renderDataTable(({
     if(input$tDatos == "Manual" && input$subman == TRUE){
-     
+      
       inFile <<- input$valtxt
       if (is.null(inFile)){
         return(NULL)
@@ -424,7 +475,7 @@ shinyServer(function(input, output, session) {
             )
           ),
           fluidRow(
-            column(class="col-sm-offset-1",
+            column(class="col-sm-offset-1 text-center",
                    10, h3("Gráfico"),
                    downloadButton('downloadPlot', label = "Descargar gráfico"),
                    plotOutput("graf")
@@ -496,7 +547,7 @@ shinyServer(function(input, output, session) {
                              choices = modelos)
           ),
           column(class = "text-center",
-            12, bsButton(inputId = "btnCalcR", "Calcular modelo", style="info", icon = icon("send"))
+                 12, bsButton(inputId = "btnCalcR", "Calcular modelo", style="info", icon = icon("send"))
           )
         ) 
       )
@@ -798,19 +849,19 @@ shinyServer(function(input, output, session) {
       ),
       fluidRow(
         column(
-          4, tags$div(class="panel panel-warning",
+          4, tags$div(class="panel panel-danger",
                       tags$div(class="panel-heading", tags$h4(class="panel-title"), "Varianza"),
                       tags$div(class="panel-body", textOutput("varianza"))
           )
         ),
         column(
-          4, tags$div(class="panel panel-warning",
+          4, tags$div(class="panel panel-danger",
                       tags$div(class="panel-heading", tags$h4(class="panel-title"), "Desviación estándar"),
                       tags$div(class="panel-body", textOutput("desest"))
           )
         ),
         column(
-          4, tags$div(class="panel panel-warning",
+          4, tags$div(class="panel panel-danger",
                       tags$div(class="panel-heading", tags$h4(class="panel-title"), "Sesgo"),
                       tags$div(class="panel-body", textOutput("sesgo"))
           )
@@ -818,19 +869,19 @@ shinyServer(function(input, output, session) {
       ),
       fluidRow(
         column(
-          4, tags$div(class="panel panel-warning",
+          4, tags$div(class="panel panel-danger",
                       tags$div(class="panel-heading", tags$h4(class="panel-title"), "Curtosis"),
                       tags$div(class="panel-body", textOutput("curtosis"))
           )
         ),
         column(
-          4, tags$div(class="panel panel-warning",
+          4, tags$div(class="panel panel-danger",
                       tags$div(class="panel-heading", tags$h4(class="panel-title"), "Rango"),
                       tags$div(class="panel-body", textOutput("rango"))
           )
         ),
         column(
-          4, tags$div(class="panel panel-warning",
+          4, tags$div(class="panel panel-danger",
                       tags$div(class="panel-heading", tags$h4(class="panel-title"), "Máximo, Mínimo"),
                       tags$div(class="panel-body", textOutput("mn"))
           )

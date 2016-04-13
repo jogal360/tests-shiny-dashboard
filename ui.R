@@ -7,7 +7,8 @@
 library(shiny)
 library(shinyjs)
 library(shinydashboard)
-jsCode <- "shinyjs.clickHide = function(){$('#li3').children().click (); }"
+jsCode <- "shinyjs.clickHide = function(){$('#li3').children().click (); };
+            shinyjs.arriba = function(){$('html, body').animate({ scrollTop: 0 }, 'slow'); console.log('subiendo');}"
 
 shinyUI(
   dashboardPage(

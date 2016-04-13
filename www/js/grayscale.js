@@ -1,3 +1,4 @@
+ $("html, body").animate({ scrollTop: 0 }, "slow");
 // jQuery to collapse the navbar on scroll
 holi();
 function holi (){
@@ -67,10 +68,14 @@ document.getElementById("go").addEventListener("click", function(){
 $($('.main-header').children()[1]).addClass("navbar-fixed-top");
 $($('.main-header').children()[0]).css('position','fixed');
 
+function subir (){
+ $('html, body').animate({ scrollTop: 0 }, 'slow'); console.log('subiendo');
+}
 //Agregar id a cada elemento del sidePanel
 $('#menu').on('DOMNodeInserted', 'li', function () {
     
         $('#menu').children().last().attr('id','li'+ $("#menu li").length);
+        $('#menu').children().last().on("click", subir);
         id = $('#menu').children().last().attr('id'); 
       
       if((id !== "li1") && (id !== "li2") ){
