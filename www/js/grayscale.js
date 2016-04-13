@@ -69,7 +69,7 @@ $($('.main-header').children()[1]).addClass("navbar-fixed-top");
 $($('.main-header').children()[0]).css('position','fixed');
 
 function subir (){
- $('html, body').animate({ scrollTop: 0 }, 'slow'); console.log('subiendo');
+ $('html, body').animate({ scrollTop: 0 }, 'slow');
 }
 //Agregar id a cada elemento del sidePanel
 $('#menu').on('DOMNodeInserted', 'li', function () {
